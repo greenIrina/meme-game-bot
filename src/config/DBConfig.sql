@@ -4,21 +4,21 @@ use meme_game_bot_db;
 
 create table Chats
 (
-    id int not null primary key unique
+    id BIGINT not null primary key unique
 );
 
 create table Themes
 (
-    id      int          not null primary key unique auto_increment,
-    chat_id int          not null,
+    id      BIGINT       not null primary key unique auto_increment,
+    chat_id BIGINT       not null,
     name    varchar(255) not null,
     foreign key theme2chat (chat_id) references Chats (id)
 );
 
 create table Games
 (
-    id          int             not null primary key unique auto_increment,
-    chat_id     int             not null,
+    id          BIGINT          not null primary key unique auto_increment,
+    chat_id     BIGINT          not null,
     player_name varchar(255)    not null,
     foreign key game2chat (chat_id) references Chats(id)
 );
