@@ -26,7 +26,7 @@ class ShowAllThemesCommand extends Conversation implements Command
         if ($output == "") {
             $bot->sendMessage("У этого чата нет тем.");
         } else {
-            $bot->sendMessage("Список тем этого чата\n" . $output);
+            $bot->sendMessage("Список тем этого чата (нумерация странная, потому что я тупой)\n\n" . $output);
         }
 
     }

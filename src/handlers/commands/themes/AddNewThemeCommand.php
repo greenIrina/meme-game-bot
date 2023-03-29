@@ -17,7 +17,7 @@ class AddNewThemeCommand extends Conversation implements Command
      */
     public function start(Nutgram $bot)
     {
-        $bot->sendMessage('Введите описание темы ответом на это сообщение:');
+        $bot->sendMessage('Введите описание темы ответом на это сообщение (тот же человек, что нажал на команду, я тупой):');
         $this->next('addTheme');
     }
 

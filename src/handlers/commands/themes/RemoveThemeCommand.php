@@ -15,7 +15,7 @@ class RemoveThemeCommand extends Conversation implements Command
      * @throws InvalidArgumentException
      */
     public function start(Nutgram $bot) {
-        $bot->sendMessage("Напишите номер темы, которую хотите удалить, ответом на это сообщение:");
+        $bot->sendMessage("Напишите номер темы, которую хотите удалить, ответом на это сообщение (тот же человек, что нажал на команду, я тупой):");
         $this->next('deleteTheme');
     }
 
