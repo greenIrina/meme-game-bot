@@ -29,16 +29,17 @@ class StartGameCommand extends Conversation implements Command
         } else {
             $players = $gameService->getPlayers($cid);
             if (count($players) < 3) {
-                $bot->sendMessage("В игре должно быть как минимум 2 участника.");
+                $bot->sendMessage("В игре должно быть как минимум 2 участника. Чтобы присоединиться, используйте команду /"
+                    . JoinCommand::getName());
             } else {
-                $bot->sendMessage("Начинаем раунд! Как только заканчиваете раунд, введите команду /" . EndRoundCommand::getName()
-                    . ", чтобы провести голосование, и команду /" . StartGameCommand::getName()
-                    . ", чтобы перейти к следующему раунду.");
 //                $this->next('getTheme');
                 /** @var ThemeService $themeService */
                 $themeService = $bot->getGlobalData(StoredVariables::THEME_SERVICE);
                 $theme = $themeService->getRandomTheme($bot->chatId());
-                $bot->sendMessage("Тема текущего раунда: " . $theme['name']);
+                $bot->sendMessage("Начинаем раунд! Текущая тема: " . $theme['name']
+                . "\n\nЕсли желаете сменить тему, снова нажмите /" . StartGameCommand::getName());
+                $bot->sendMessage("Участники, отправляйте по мему, после чего проведите голосование по команде /"
+                . EndRoundCommand::getName());
 //                $this->end();
             }
         }

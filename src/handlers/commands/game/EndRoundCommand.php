@@ -18,7 +18,8 @@ class EndRoundCommand extends Conversation implements Command
      * @throws InvalidArgumentException
      * @throws JsonException
      */
-    public function start(Nutgram $bot) {
+    public function start(Nutgram $bot)
+    {
         /**
          * @var GameService $gameService
          */
@@ -29,10 +30,11 @@ class EndRoundCommand extends Conversation implements Command
         } else {
             $players = $gameService->getPlayers($cid);
             if (count($players) < 3) {
-                $bot->sendMessage("В игре должно быть как минимум 2 участника.");
+                $bot->sendMessage("В игре должно быть как минимум 2 участника. Прекращаю игру");
+                $gameService->deleteGame($cid);
+
             } else {
                 $bot->sendMessage("Раунд окончен. Голосуем за лучший вариант:");
-
                 $options = array();
                 foreach ($players as $player) {
                     if ($player['player_name'] == '0') {
@@ -40,7 +42,13 @@ class EndRoundCommand extends Conversation implements Command
                     }
                     $options[] = $player['player_name'];
                 }
-                $bot->sendPoll("Победитель раунда", $options);
+                $options[] = "тык";
+                $config = [
+                    "is_anonymous" => false
+                ];
+                $bot->sendPoll("Победитель раунда", $options, $config);
+                $bot->sendMessage("Чтобы начать следующий раунд, используйте команду /"
+                    . StartGameCommand::getName());
             }
 
         }
